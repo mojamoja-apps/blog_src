@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class BlogController extends Controller
 {
     public $search_session_name;
 
     function __construct() {
-        $this->search_session_name = 'compnay';
+        $this->search_session_name = 'blog';
     }
 
     // 一覧
@@ -21,7 +21,7 @@ class CompanyController extends Controller
 
 
 
-        $query = Company::query();
+        $query = Blog::query();
 
         //検索
         $method = $request->method();
@@ -74,45 +74,44 @@ class CompanyController extends Controller
             $collapse = config('const.COLLAPSE.OPEN');
         }
 
-        $companies = $query->orderBy('updated_at', 'desc')->get();
+        $blogs = $query->orderBy('updated_at', 'desc')->get();
 
 
-        return view('admin/company/index', compact('companies', 'search', 'collapse'));
+        return view('admin/blog/index', compact('blogs', 'search', 'collapse'));
     }
 
     // 登録・編集
     public function edit($id = null) {
         if ($id == null) {
             $mode = config('const.editmode.create');
-            $company = New Company; //新規なので空のインスタンスを渡す
+            $blog = New Blog; //新規なので空のインスタンスを渡す
         } else {
             $mode = config('const.editmode.edit');
-            $company = Company::find($id);
+            $blog = Blog::find($id);
         }
-        return view('admin/company/edit', compact('company', 'mode'));
+        return view('admin/blog/edit', compact('blog', 'mode'));
     }
 
     // 更新処理
     public function update(Request $request, $id = null) {
         $request->validate([
-            'name' => 'required|max:100',
+            'day' => 'required|date',
+            'title' => 'required|max:100',
         ]
         ,[
-            'name.required' => 'お名前は必須項目です。',
+            'day.required' => '必須項目です。',
+            'day.date' => '有効な日付を指定してください。',
+            'title.required' => '必須項目です。',
         ]);
 
         // 更新対象データ
         $updarr = [
-            'name' => $request->input('name'),
-            'zip' => $request->input('zip'),
-            'pref' => $request->input('pref'),
-            'address1' => $request->input('address1'),
-            'address2' => $request->input('address2'),
-            'tel' => $request->input('tel'),
-            'memo' => $request->input('memo'),
+            'day' => $request->input('day'),
+            'title' => $request->input('title'),
+            'body' => $request->input('body'),
         ];
 
-        Company::updateOrCreate(
+        Blog::updateOrCreate(
             ['id' => $id],
             $updarr,
         );
@@ -120,16 +119,16 @@ class CompanyController extends Controller
         // CSRFトークンを再生成して、二重送信対策
         $request->session()->regenerateToken();
 
-        return redirect( route('admin.company.index') );
+        return redirect( route('admin.blog.index') );
     }
 
     public function destroy(Request $request, $id) {
-        $company = Company::find($id);
-        $company->delete();
+        $blog = Blog::find($id);
+        $blog->delete();
 
         // CSRFトークンを再生成して、二重送信対策
         $request->session()->regenerateToken();
 
-        return redirect( route('admin.company.index') );
+        return redirect( route('admin.blog.index') );
     }
 }

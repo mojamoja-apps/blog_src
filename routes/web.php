@@ -4,14 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Report\FrontReportController;
 
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\ReportController;
-use App\Http\Controllers\Admin\CompanyController;
-use App\Http\Controllers\Admin\SiteController;
-use App\Http\Controllers\Admin\WorkerController;
-use App\Http\Controllers\Admin\DeduraController;
-use App\Http\Controllers\Admin\KintaiController;
-
-use App\Http\Controllers\Api\ValidateController;
+use App\Http\Controllers\Admin\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,16 +35,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/user/update/{id?}', [UserController::class, 'update'])->name('admin.user.update');
     Route::post('/admin/user/destroy/{id}', [UserController::class, 'destroy'])->name('admin.user.destroy');
 
-    // 元請け
-    Route::match(['get', 'post'], '/admin/company', [CompanyController::class, 'index'])->name('admin.company.index');
-    Route::get('/admin/company/edit/{id?}', [CompanyController::class, 'edit'])->name('admin.company.edit');
-    Route::post('/admin/company/update/{id?}', [CompanyController::class, 'update'])->name('admin.company.update');
-    Route::post('/admin/company/destroy/{id}', [CompanyController::class, 'destroy'])->name('admin.company.destroy');
+    // ブログ
+    Route::match(['get', 'post'], '/admin/blog', [BlogController::class, 'index'])->name('admin.blog.index');
+    Route::get('/admin/blog/edit/{id?}', [BlogController::class, 'edit'])->name('admin.blog.edit');
+    Route::post('/admin/blog/update/{id?}', [BlogController::class, 'update'])->name('admin.blog.update');
+    Route::post('/admin/blog/destroy/{id}', [BlogController::class, 'destroy'])->name('admin.blog.destroy');
 
 
 });
-
-// API 作業証明書の重複チェック
-Route::post('/api/validate/report', [ValidateController::class, 'report'])->name('api.validate.report');
 
 require __DIR__.'/auth.php';

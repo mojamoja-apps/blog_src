@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="form-group mt-15">
-    <button type="button" class="btn btn-primary" onclick="location.href='{{ route('admin.company.edit') }}'">新規登録</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='{{ route('admin.blog.edit') }}'">新規登録</button>
 </div>
 
 <div class="container-fluid">
@@ -55,22 +55,24 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>社名</th>
+                                <th>日付</th>
+                                <th>タイトル</th>
                                 <th>登録日時</th>
                                 <th>更新日時</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($companies as $company)
+                        @foreach($blogs as $blog)
                             <tr>
-                                <td>{{ $company->id }}</td>
-                                <td>{{ $company->name }}</td>
-                                <td>{{ $company->created_at }}</td>
-                                <td>{{ $company->updated_at }}</td>
+                                <td>{{ $blog->id }}</td>
+                                <td>{{ $blog->day->format('Y/m/d') }}</td>
+                                <td>{{ $blog->title }}</td>
+                                <td>{{ $blog->created_at }}</td>
+                                <td>{{ $blog->updated_at }}</td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-primary" onclick="location.href='{{route('admin.company.edit',['id' => $company->id])}}'">編集</button>
-                                    <button type="button" class="btn btn-danger delete_btn" onclick="deleteData('{{ route('admin.company.destroy',['id' => $company->id]) }}');">削除</button>
+                                    <button type="button" class="btn btn-primary" onclick="location.href='{{route('admin.blog.edit',['id' => $blog->id])}}'">編集</button>
+                                    <button type="button" class="btn btn-danger delete_btn" onclick="deleteData('{{ route('admin.blog.destroy',['id' => $blog->id]) }}');">削除</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -104,7 +106,7 @@
 
 @section('js')
 <script src="{{ asset( cacheBusting('js/common.js') ) }}"></script>
-<script src="{{ asset( cacheBusting('js/admin/company.js') ) }}"></script>
+<script src="{{ asset( cacheBusting('js/admin/blog.js') ) }}"></script>
 <script>
 
 

@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id()->comment('ID');
             $table->date('day')->comment('日時');
             $table->string('title')->nullable()->comment('タイトル');
-            $table->text('memo')->nullable()->comment('本文');
+            $table->text('body')->nullable()->comment('本文');
             $table->boolean('is_enabled')->default(false)->comment('有効無効');
             $table->string('dir')->nullable()->comment('添付ファイル用ディレクトリ');
+            $table->integer('category')->nullable()->comment('カテゴリー');
             $table->timestamps();
         });
 
