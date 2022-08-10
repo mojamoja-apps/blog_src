@@ -13,7 +13,21 @@ $(function(){
     });
 
     // 本文に対してsummernote適用
-    $('#body').summernote()
+    $('#body').summernote({
+        height: 400,
+        lang: "ja-JP",
+        toolbar: [
+    // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+        ]
+    });
 
     $('#edit_form').validate({
         rules: {
