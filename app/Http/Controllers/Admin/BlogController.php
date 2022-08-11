@@ -32,6 +32,7 @@ class BlogController extends Controller
         $search = [];
         $search_keys = [
             'keyword',
+            'category',
         ];
         foreach ($search_keys as $keyname) {
             $search[$keyname] = '';
@@ -60,15 +61,15 @@ class BlogController extends Controller
             $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
             // 単語をループで回し、ユーザーネームと部分一致するものがあれば、$queryとして保持される
             foreach($wordArraySearched as $value) {
-                $query->where('name', 'like', '%'.$value.'%')
-                    ->OrWhere('zip', 'like', '%'.$value.'%')
-                    ->OrWhere('pref', 'like', '%'.$value.'%')
-                    ->OrWhere('address1', 'like', '%'.$value.'%')
-                    ->OrWhere('address2', 'like', '%'.$value.'%')
-                    ->OrWhere('tel', 'like', '%'.$value.'%')
-                    ->OrWhere('memo', 'like', '%'.$value.'%')
+                $query->where('title', 'like', '%'.$value.'%')
+                    ->OrWhere('body', 'like', '%'.$value.'%')
                 ;
             }
+            $open = true;
+        }
+
+        if ($search['category']) {
+            $query->where('category', '=', $search['category']);
             $open = true;
         }
 
@@ -117,6 +118,7 @@ class BlogController extends Controller
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'dir' => $request->input('dir'),
+            'category' => $request->input('category'),
         ];
 
         Blog::updateOrCreate(

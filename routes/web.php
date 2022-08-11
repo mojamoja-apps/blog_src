@@ -6,6 +6,7 @@ use App\Http\Controllers\Report\FrontReportController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\SummernoteController;
+use App\Http\Controllers\Front\FrontBlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,12 @@ Route::middleware('auth')->group(function () {
     // 画像アップロード
     Route::post('/admin/upload_image', [SummernoteController::class, 'upload_image'])->name('admin.upload_image');
 
-
 });
+
+
+// フロント
+Route::get('/blog', [FrontBlogController::class, 'index'])->name('front.blog.index');
+Route::get('/blog/{id}', [FrontBlogController::class, 'index'])->name('front.blog.view');
+
 
 require __DIR__.'/auth.php';

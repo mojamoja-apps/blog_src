@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CompaniesTableSeeder extends Seeder
+class BlogsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,11 +14,17 @@ class CompaniesTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($ix = 1; $ix <= 100; $ix++) {
+
+        $cate_arr = [10,20,30,40,50,999];
+
+        for ($ix = 1; $ix <= 500; $ix++) {
             $dispix = sprintf('%03d', $ix);
-            \DB::table('Companies')->insert([
+            \DB::table('blogs')->insert([
                 [
-                    'name' => $dispix . '元請け企業',
+                    'title' => 'ブログ記事テスト' . $dispix,
+                    'day' => date('Y-m-d H:i:s', strtotime('2021/01/01 +' . $ix . ' day')),
+                    'is_enabled' => 1,
+                    'category' => $cate_arr[ array_rand($cate_arr) ],
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ]

@@ -41,6 +41,27 @@
                             <code>{{ $errors->first('day') }}</code>
                             @endif
                         </div>
+
+                        <div class="form-group">
+                            <label for="belongs">カテゴリー</label>
+                            <div class="form-inline">
+                                @foreach (config('const.BLOG_CATEGORY') as $key => $item)
+                                <div class="custom-control custom-radio">
+                                    <input class="custom-control-input" type="radio" name="category" id="category_{{$key}}" value="{{$key}}"
+                                    @if ((int)old('category') == $key) checked
+                                    @elseif ($blog->category == $key) checked
+                                    @elseif ($key == 1 && $blog->category == null) checked
+                                    @endif
+                                    >
+                                    <label for="category_{{$key}}" class="custom-control-label">{{$item}}　</label>
+                                </div>
+                                @endforeach
+                            </div>
+                            @if ($errors->has('category'))
+                            <code>{{ $errors->first('category') }}</code>
+                            @endif
+                        </div>
+
                         <div class="form-group">
                             <label for="title">タイトル</label>
                             <input type="text" class="form-control" name="title" id="title" placeholder="オススメのラーメン屋を発見！" value="{{ old('title', $blog->title) }}">

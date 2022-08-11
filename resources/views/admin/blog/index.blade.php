@@ -26,6 +26,31 @@
                     </div>
                     <div class="card-body" style="{{$collapse['BODY_STYLE']}}">
                         <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>カテゴリー</label>
+                                    <div class="form-inline">
+                                        <div class="custom-control custom-radio">
+                                            <input class="custom-control-input" type="radio" name="category" id="category_all" value=""
+                                            @if ($search['keyword'] == null) checked
+                                            @endif
+                                            >
+                                            <label for="category_all" class="custom-control-label">全て　</label>
+                                        </div>
+                                        @foreach (config('const.BLOG_CATEGORY') as $key => $item)
+                                        <div class="custom-control custom-radio">
+                                            <input class="custom-control-input" type="radio" name="category" id="category_{{$key}}" value="{{$key}}"
+                                            @if ($search['category'] == $key) checked
+                                            @endif
+                                            >
+                                            <label for="category_{{$key}}" class="custom-control-label">{{$item}}　</label>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>フリーワード検索</label>
@@ -56,6 +81,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>日付</th>
+                                <th>カテゴリー</th>
                                 <th>タイトル</th>
                                 <th>登録日時</th>
                                 <th>更新日時</th>
@@ -67,6 +93,7 @@
                             <tr>
                                 <td>{{ $blog->id }}</td>
                                 <td>{{ $blog->day->format('Y/m/d') }}</td>
+                                <td>{{ config('const.BLOG_CATEGORY.' . $blog->category) }}</td>
                                 <td>{{ $blog->title }}</td>
                                 <td>{{ $blog->created_at }}</td>
                                 <td>{{ $blog->updated_at }}</td>
