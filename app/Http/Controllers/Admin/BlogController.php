@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class BlogController extends Controller
 {
@@ -89,6 +91,11 @@ class BlogController extends Controller
             $mode = config('const.editmode.edit');
             $blog = Blog::find($id);
         }
+
+        // 画像アップロードディレクトリ用テキスト 無ければ生成
+        if ($blog->dir == null) {
+            $blog->dir = date('YmdHis') .'_'. Str::random(5);
+        }
         return view('admin/blog/edit', compact('blog', 'mode'));
     }
 
@@ -109,6 +116,7 @@ class BlogController extends Controller
             'day' => $request->input('day'),
             'title' => $request->input('title'),
             'body' => $request->input('body'),
+            'dir' => $request->input('dir'),
         ];
 
         Blog::updateOrCreate(

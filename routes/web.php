@@ -5,6 +5,7 @@ use App\Http\Controllers\Report\FrontReportController;
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\SummernoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/blog/edit/{id?}', [BlogController::class, 'edit'])->name('admin.blog.edit');
     Route::post('/admin/blog/update/{id?}', [BlogController::class, 'update'])->name('admin.blog.update');
     Route::post('/admin/blog/destroy/{id}', [BlogController::class, 'destroy'])->name('admin.blog.destroy');
+
+    // 画像アップロード
+    Route::post('/admin/upload_image', [SummernoteController::class, 'upload_image'])->name('admin.upload_image');
 
 
 });

@@ -23,7 +23,7 @@
 
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="name">作業日</label>
+                            <label for="name">日付</label>
                             <div class="input-group">
                                 <div class="form-inline">
                                     <input type="text" class="form-control" name="day" id="day"
@@ -58,7 +58,7 @@
                         </div>
                     </div>
 
-
+<input type="hidden" name="dir" id="dir" value="{{ $blog->dir }}">
 
                     <div class="card-footer">
                         <button type="submit" id="commit_btn" class="btn btn-primary">登録</button>

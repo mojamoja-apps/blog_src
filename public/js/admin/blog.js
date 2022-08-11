@@ -26,8 +26,33 @@ $(function(){
             ['table', ['table']],
             ['insert', ['link', 'picture', 'video']],
             ['view', ['fullscreen', 'codeview', 'help']],
-        ]
+        ],
+
+        callbacks: {
+            //画像がアップロードされた時の動作
+            onImageUpload: function(files) {
+                sendFile(files[0]);
+            }
+        }
     });
+    function sendFile(file){
+        data = new FormData();
+        data.append("image", file);
+        data.append("_token", CSRF_TOKEN);
+        data.append("dir", $('#dir').val());
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: '/admin/upload_image',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                //アップロードが成功した後の画像を書き込む処理
+                $('#body').summernote('insertImage',data.image_url);
+            }
+        });
+    }
 
     $('#edit_form').validate({
         rules: {
