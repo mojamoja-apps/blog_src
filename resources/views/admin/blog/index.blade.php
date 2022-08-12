@@ -80,6 +80,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>状態</th>
                                 <th>日付</th>
                                 <th>カテゴリー</th>
                                 <th>タイトル</th>
@@ -92,6 +93,7 @@
                         @foreach($blogs as $blog)
                             <tr>
                                 <td>{{ $blog->id }}</td>
+                                <td>@if ($blog->is_enabled == 1) <span class="text-primary">公開</span> @else <span class="text-danger">非公開</span> @endif</td>
                                 <td>{{ $blog->day->format('Y/m/d') }}</td>
                                 <td>{{ config('const.BLOG_CATEGORY.' . $blog->category) }}</td>
                                 <td>{{ $blog->title }}</td>
@@ -146,13 +148,14 @@ $('#datatable1').DataTable({
     "lengthChange": false,
     "searching": true,
     "ordering": true,
+    "order": [ [ 2, "desc" ] ],
     "info": true,
     "autoWidth": false,
     "responsive": true,
     "columnDefs": [
-        { responsivePriority: 1, targets: 0 },
+        { responsivePriority: 1, targets: 4 },
         { responsivePriority: 2, targets: -1 },
-        { responsivePriority: 3, targets: 1 },
+        { responsivePriority: 3, targets: 2 },
     ],
 });
 </script>

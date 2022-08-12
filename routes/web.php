@@ -51,7 +51,8 @@ Route::middleware('auth')->group(function () {
 
 // フロント
 Route::get('/blog', [FrontBlogController::class, 'index'])->name('front.blog.index');
-Route::get('/blog/{id}', [FrontBlogController::class, 'index'])->name('front.blog.view');
+Route::get('/blog/category/{category_id}', [FrontBlogController::class, 'index'])->name('front.blog.category_index');
+Route::get('/blog/{id}', [FrontBlogController::class, 'view'])->name('front.blog.view');
 
 
 require __DIR__.'/auth.php';

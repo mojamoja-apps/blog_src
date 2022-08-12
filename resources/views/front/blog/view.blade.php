@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'ブログ記事一覧')
+@section('title', $blog->title . ' - ブログ詳細ページ')
 
 @section('content_header')
-    <h1>ブログ記事一覧</h1>
+    <h1>{{ $blog->title }} - ブログ詳細ページ</h1>
 @stop
 
 @section('content')
@@ -14,20 +14,24 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <ul>
-                        @foreach($blogs as $blog)
-                            <li>
-                                <a href="{{route('front.blog.view',['id' => $blog->id])}}" >
-                                {{ $blog->day !== null ? $blog->day->format('Y/m/d') : '' }}
-                                {{ config('const.BLOG_CATEGORY.' . $blog->category) }}
-                                {{ $blog->title }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
+                    <p>{!! $blog->body !!}</p>
+                </div>
+                <div class="card-footer">
+                    @if ($prev !== null)
+                    <span>
+                        <a href="{{ route('front.blog.view',['id' => $prev->id]) }}">
+                            ＜＜ {{ $prev->title }}
+                        </a>
+                    </span>
+                    @endif
 
-                    {!! $blogs->onEachSide(1)->links() !!}
-
+                    @if ($next !== null)
+                    <span class="float-right">
+                        <a href="{{ route('front.blog.view',['id' => $next->id]) }}">
+                            {{ $next->title }} ＞＞
+                        </a>
+                    </span>
+                    @endif
                 </div>
             </div>
 

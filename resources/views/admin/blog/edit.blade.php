@@ -22,6 +22,19 @@
 
 
                     <div class="card-body">
+
+                        <div class="form-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="is_enabled" name="is_enabled" value="1"
+                                    @if ((int)old('is_enabled') == 1) checked
+                                    @elseif ($blog->is_enabled == 1) checked
+                                    @elseif ($mode == config('const.editmode.create')) checked
+                                    @endif
+                                >
+                                    <label class="custom-control-label" for="is_enabled">記事を公開する</label>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="name">日付</label>
                             <div class="input-group">
@@ -50,7 +63,7 @@
                                     <input class="custom-control-input" type="radio" name="category" id="category_{{$key}}" value="{{$key}}"
                                     @if ((int)old('category') == $key) checked
                                     @elseif ($blog->category == $key) checked
-                                    @elseif ($key == 1 && $blog->category == null) checked
+                                    @elseif ($key == 10 && $blog->category == null) checked
                                     @endif
                                     >
                                     <label for="category_{{$key}}" class="custom-control-label">{{$item}}　</label>

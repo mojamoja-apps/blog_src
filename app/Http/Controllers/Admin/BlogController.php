@@ -114,6 +114,7 @@ class BlogController extends Controller
 
         // 更新対象データ
         $updarr = [
+            'is_enabled' => $request->input('is_enabled') ?? 0,
             'day' => $request->input('day'),
             'title' => $request->input('title'),
             'body' => $request->input('body'),
