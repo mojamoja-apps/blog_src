@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\SummernoteController;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Front\FrontBlogController;
+use App\Http\Controllers\Front\FrontContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,5 +50,7 @@ Route::get('/blog', [FrontBlogController::class, 'index'])->name('front.blog.ind
 Route::get('/blog/category/{category_id}', [FrontBlogController::class, 'index'])->name('front.blog.category_index');
 Route::get('/blog/{id}', [FrontBlogController::class, 'view'])->name('front.blog.view');
 
+Route::get('/contact', [FrontContactController::class, 'index'])->name('front.contact.index');
+Route::post('/contact/send', [FrontContactController::class, 'send'])->name('front.contact.send');
 
 require __DIR__.'/auth.php';
