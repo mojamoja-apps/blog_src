@@ -65,6 +65,6 @@
 
 @section('js')
 <script src="{{ asset( cacheBusting('js/common.js') ) }}"></script>
-<script src="{{ asset( cacheBusting('js/report/report.js') ) }}"></script>
+
 
 @stop

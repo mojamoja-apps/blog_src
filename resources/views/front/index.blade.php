@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'ブログ記事一覧')
+@section('title', 'ブログトップページ')
 
 @section('content_header')
-    <h1>ブログ記事一覧</h1>
+    <h1>ブログトップページ</h1>
 @stop
 
 @section('content')
@@ -13,6 +13,9 @@
 
         <div class="col-12">
             <div class="card">
+                <div class="card-body">
+                    <h3>ブログ最新5件</h3>
+                </div>
                 <div class="card-body">
                     <ul>
                         @foreach($blogs as $blog)
@@ -30,27 +33,10 @@
                     </ul>
                 </div>
                 <div class="card-footer">
-                    {!! $blogs->onEachSide(1)->links() !!}
+                    <a href="{{ route('front.blog.index') }}">記事一覧へ</a>
                 </div>
             </div>
 
-
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">カテゴリ一覧</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        @foreach(config('const.BLOG_CATEGORY') as $cate_key => $category)
-                            <li>
-                                <a href="{{route('front.blog.category_index',['category_id' => $cate_key])}}" >
-                                {{ $category }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -64,6 +50,5 @@
 
 @section('js')
 <script src="{{ asset( cacheBusting('js/common.js') ) }}"></script>
-
 
 @stop

@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Report\FrontReportController;
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\SummernoteController;
+use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Front\FrontBlogController;
 
 /*
@@ -18,12 +18,6 @@ use App\Http\Controllers\Front\FrontBlogController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    //return view('welcome');
-    return redirect('/report');
-});
-
 
 // 管理画面
 Route::middleware('auth')->group(function () {
@@ -50,6 +44,7 @@ Route::middleware('auth')->group(function () {
 
 
 // フロント
+Route::get('/', [FrontController::class, 'index'])->name('front.index');
 Route::get('/blog', [FrontBlogController::class, 'index'])->name('front.blog.index');
 Route::get('/blog/category/{category_id}', [FrontBlogController::class, 'index'])->name('front.blog.category_index');
 Route::get('/blog/{id}', [FrontBlogController::class, 'view'])->name('front.blog.view');
