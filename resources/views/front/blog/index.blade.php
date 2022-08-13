@@ -22,6 +22,9 @@
                                 {{ config('const.BLOG_CATEGORY.' . $blog->category) }}
                                 {{ $blog->title }}
                                 </a>
+                                @if ($blog->image)
+                                <img src="{{ $blog->image }}" width="100">
+                                @endif
                             </li>
                         @endforeach
                     </ul>

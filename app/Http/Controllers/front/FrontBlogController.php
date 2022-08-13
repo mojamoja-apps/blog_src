@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\Paginator;
 
+use App\Services\BlogService;
 
 class FrontBlogController extends Controller
 {
@@ -95,6 +96,12 @@ class FrontBlogController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(10);
 
+        // ブログ本文から最初の画像を抜き出してimageカラムを設定
+        $blogsv = New BlogService();
+        $blogs->map(function ($v) use ($blogsv) {
+            $v['image'] = $blogsv->pickupImageURL($v['body']);
+            return $v;
+        });
 
         return view('front/blog/index', compact('blogs'));
     }
