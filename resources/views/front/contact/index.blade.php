@@ -26,13 +26,14 @@
 
 
             <div class="card">
-                {{Form::open(['method'=>'post', 'id'=>'edit_form', 'route' => 'front.contact.send'])}}
+                {{Form::open(['method'=>'post', 'id'=>'edit_form', 'route' => 'front.contact.confirm'])}}
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">お名前 <code>*必須</code></label>
                             <input type="text" class="form-control" name="name" id="name" placeholder=""
-                            value=""
+                            value="{{ old('name', $input['name'] ?? '') }}"
                             maxlength="50"
+                            required
                             >
                             @if ($errors->has('name'))
                             <code>{{ $errors->first('name') }}</code>
@@ -42,8 +43,9 @@
                         <div class="form-group">
                             <label for="mail">メールアドレス <code>*必須</code></label>
                             <input type="email" class="form-control" name="mail" id="mail" placeholder=""
-                            value=""
+                            value="{{ old('mail', $input['mail'] ?? '') }}"
                             maxlength="50"
+                            required
                             >
                             @if ($errors->has('mail'))
                             <code>{{ $errors->first('mail') }}</code>
@@ -55,7 +57,8 @@
                             <textarea name="body" id="body" class="form-control" placeholder=""
                             rows="8"
                             maxlength="5000"
-                            ></textarea>
+                            required
+                            >{{ old('body', $input['body'] ?? '') }}</textarea>
                             @if ($errors->has('body'))
                             <code>{{ $errors->first('body') }}</code>
                             @endif
@@ -64,7 +67,7 @@
 
                     </div>
                     <div class="card-footer">
-                        <button type="submit" id="commit_btn" class="btn btn-primary">送信</button>
+                        <button type="submit" id="commit_btn" class="btn btn-primary">送信確認</button>
                     </div>
                 {{ Form::close() }}
             </div>

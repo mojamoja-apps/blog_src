@@ -50,7 +50,8 @@ Route::get('/blog', [FrontBlogController::class, 'index'])->name('front.blog.ind
 Route::get('/blog/category/{category_id}', [FrontBlogController::class, 'index'])->name('front.blog.category_index');
 Route::get('/blog/{id}', [FrontBlogController::class, 'view'])->name('front.blog.view');
 
-Route::get('/contact', [FrontContactController::class, 'index'])->name('front.contact.index');
+Route::match(['get', 'post'], '/contact', [FrontContactController::class, 'index'])->name('front.contact.index');
+Route::post('/contact/confirm', [FrontContactController::class, 'confirm'])->name('front.contact.confirm');
 Route::post('/contact/send', [FrontContactController::class, 'send'])->name('front.contact.send');
 
 require __DIR__.'/auth.php';
